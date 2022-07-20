@@ -18,4 +18,26 @@ export const defaultTheme = {
 
   backgorund: '#FAFAFA',
   white: '#ffffff',
+
+  title: {
+    xl: '3rem',
+    l: '2rem',
+    m: '1.5rem',
+    s: '1.25rem',
+    xs: '1.125rem',
+  },
+
+  text: {
+    l: '1.25rem',
+    m: '1rem',
+    s: '0.875rem',
+    's-bold': '0.75rem',
+  },
+
+  tag: '0.625rem',
+
+  'text-button': {
+    s: '0.75rem',
+    g: '0.875rem',
+  },
 }
