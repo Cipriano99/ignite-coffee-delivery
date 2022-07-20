@@ -1,7 +1,9 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 import coffeeImg from '../../assets/CoffeeImage.png'
+import { MenuCardCoffee } from '../../components/MenuCardCoffee'
 import {
   ContentContainer,
+  ContentHeader,
   Header,
   HeaderContent,
   ItensContainer,
@@ -12,7 +14,7 @@ export const Home = () => {
     <>
       <Header>
         <HeaderContent>
-          <ContentContainer>
+          <ContentHeader>
             <h1>Encontre o café perfeito para qualquer hora do dia</h1>
             <p>
               Com o Coffee Delivery você recebe seu café onde estiver, a
@@ -45,11 +47,26 @@ export const Home = () => {
                 <p>O café chega fresquinho até você</p>
               </div>
             </ItensContainer>
-          </ContentContainer>
+          </ContentHeader>
 
           <img src={coffeeImg} alt="" />
         </HeaderContent>
       </Header>
+
+      <ContentContainer>
+        <h2>Nossos cafés</h2>
+        <div>
+          <MenuCardCoffee />
+          <MenuCardCoffee />
+          <MenuCardCoffee />
+          <MenuCardCoffee />
+          <MenuCardCoffee />
+          <MenuCardCoffee />
+          <MenuCardCoffee />
+          <MenuCardCoffee />
+          <MenuCardCoffee />
+        </div>
+      </ContentContainer>
     </>
   )
 }

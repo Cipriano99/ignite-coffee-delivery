@@ -8,20 +8,18 @@ export const Header = styled.header`
 `
 
 export const HeaderContent = styled.div`
-  max-width: 1120px;
-  margin: 0 auto;
-
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 3.5rem;
+  padding: 2rem 10rem;
 
   img {
     width: 478px;
   }
 `
 
-export const ContentContainer = styled.div`
+export const ContentHeader = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -78,5 +76,20 @@ export const ItensContainer = styled.div`
     &:nth-child(4) span {
       background-color: ${({ theme }) => theme.purple};
     }
+  }
+`
+
+export const ContentContainer = styled.main`
+  padding: 2rem 10rem;
+
+  h2 {
+    margin-bottom: 3.375rem;
+  }
+
+  > div {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 2.5rem;
+    column-gap: 2rem;
   }
 `
