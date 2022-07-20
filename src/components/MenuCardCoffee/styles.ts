@@ -36,14 +36,21 @@ export const CardContainer = styled.div`
 `
 
 export const Tag = styled.span`
-  padding: 0.25rem 0.5rem;
-  text-transform: uppercase;
-  font-size: ${({ theme }) => theme.tag};
-  font-weight: 700;
-  background-color: ${({ theme }) => theme['yellow-light']};
-  color: ${({ theme }) => theme['yellow-dark']};
-  border-radius: 100px;
   margin-bottom: 1rem;
+
+  span {
+    padding: 0.25rem 0.5rem;
+    text-transform: uppercase;
+    font-size: ${({ theme }) => theme.tag};
+    font-weight: 700;
+    background-color: ${({ theme }) => theme['yellow-light']};
+    color: ${({ theme }) => theme['yellow-dark']};
+    border-radius: 100px;
+
+    & + span {
+      margin-left: 0.25rem;
+    }
+  }
 `
 export const Price = styled.div`
   display: flex;

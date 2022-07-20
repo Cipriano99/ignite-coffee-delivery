@@ -1,4 +1,5 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
+import { useState } from 'react'
 import coffeeImg from '../../assets/CoffeeImage.png'
 import { MenuCardCoffee } from '../../components/MenuCardCoffee'
 import {
@@ -8,8 +9,11 @@ import {
   HeaderContent,
   ItensContainer,
 } from './styles'
+import { coffeesData } from '../../data/coffees'
 
 export const Home = () => {
+  const [coffees, setCoffees] = useState(coffeesData)
+
   return (
     <>
       <Header>
@@ -56,15 +60,9 @@ export const Home = () => {
       <ContentContainer>
         <h2>Nossos cafés</h2>
         <div>
-          <MenuCardCoffee />
-          <MenuCardCoffee />
-          <MenuCardCoffee />
-          <MenuCardCoffee />
-          <MenuCardCoffee />
-          <MenuCardCoffee />
-          <MenuCardCoffee />
-          <MenuCardCoffee />
-          <MenuCardCoffee />
+          {coffees.map((coffee) => (
+            <MenuCardCoffee key={coffee.name} dataCoffee={coffee} />
+          ))}
         </div>
       </ContentContainer>
     </>
