@@ -4,14 +4,22 @@ import {
   CreditCard,
   Bank,
   Money,
+  Trash,
 } from 'phosphor-react'
 import {
+  Actions,
   AddressContainer,
   CartContainer,
   FormContainer,
+  OrderContainer,
+  OrderItem,
+  OrderResume,
   PaymentContainer,
   PaymentMethod,
 } from './styles'
+
+import coffeeImg from '../../assets/coffees/Expresso.png'
+import { InputCounter } from '../../components/InputCounter'
 
 export const Cart = () => {
   return (
@@ -78,9 +86,70 @@ export const Cart = () => {
 
       <section>
         <h2>Cafés selecionados</h2>
-        <div>
-          <h3>CAFÉS</h3>
-        </div>
+        <OrderContainer>
+          <OrderItem>
+            <img src={coffeeImg} alt="" />
+            <div>
+              <p>Expresso Tradissional</p>
+              <Actions>
+                <InputCounter />
+                <button>
+                  <Trash />
+                  Remover
+                </button>
+              </Actions>
+            </div>
+            <h4>R$9,90</h4>
+          </OrderItem>
+          <hr />
+          <OrderItem>
+            <img src={coffeeImg} alt="" />
+            <div>
+              <p>Expresso Tradissional</p>
+              <Actions>
+                <InputCounter />
+                <button>
+                  <Trash />
+                  Remover
+                </button>
+              </Actions>
+            </div>
+            <h4>R$9,90</h4>
+          </OrderItem>
+          <hr />
+          <OrderItem>
+            <img src={coffeeImg} alt="" />
+            <div>
+              <p>Expresso Tradissional</p>
+              <Actions>
+                <InputCounter />
+                <button>
+                  <Trash />
+                  Remover
+                </button>
+              </Actions>
+            </div>
+            <h4>R$9,90</h4>
+          </OrderItem>
+          <hr />
+        </OrderContainer>
+
+        <OrderResume>
+          <div>
+            <span>Total de itens</span>
+            <span>R$ 29,75</span>
+          </div>
+
+          <div>
+            <span>Entrega</span>
+            <span>R$ 3,50</span>
+          </div>
+
+          <div>
+            <span>Total</span>
+            <span>R$ 33,20</span>
+          </div>
+        </OrderResume>
       </section>
     </CartContainer>
   )

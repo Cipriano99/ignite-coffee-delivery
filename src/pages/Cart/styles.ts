@@ -16,10 +16,6 @@ export const CartContainer = styled.div`
       background-color: ${({ theme }) => theme['base-card']};
       padding: 2.5rem;
 
-      & + div {
-        margin-top: 0.75rem;
-      }
-
       header {
         display: flex;
         gap: 0.5rem;
@@ -29,6 +25,10 @@ export const CartContainer = styled.div`
           color: ${({ theme }) => theme.text.s};
         }
       }
+    }
+
+    &:first-child > div + div {
+      margin-top: 0.75rem;
     }
   }
 `
@@ -117,5 +117,101 @@ export const PaymentMethod = styled.button<PaymentMethodProps>`
 
   &:hover {
     background: ${({ theme, isActive }) => !isActive && theme['base-hover']};
+  }
+`
+
+export const OrderContainer = styled.div`
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  hr {
+    border: 1px solid ${({ theme }) => theme['base-button']};
+  }
+`
+
+export const OrderItem = styled.div`
+  display: flex;
+  gap: 1.25rem;
+
+  img {
+    width: 4rem;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  h4 {
+    font-size: ${({ theme }) => theme.text.m};
+  }
+`
+
+export const Actions = styled.div`
+  display: flex;
+  gap: 0.5rem;
+
+  > div {
+    height: 2rem;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    height: 2rem;
+
+    background-color: ${({ theme }) => theme['base-button']};
+    color: ${({ theme }) => theme['base-text']};
+    font-size: ${({ theme }) => theme['text-button'].s};
+    text-transform: uppercase;
+
+    padding: 0.5rem;
+    border: 0;
+    border-radius: 6px;
+
+    border-bottom: 1px solid ${({ theme }) => theme['base-button']} svg {
+      color: ${({ theme }) => theme.purple};
+    }
+
+    &:hover {
+      background-color: ${({ theme }) => theme['base-hover']};
+      color: ${({ theme }) => theme['base-subtitle']};
+      svg {
+        color: ${({ theme }) => theme['purple-dark']};
+      }
+    }
+  }
+`
+export const OrderResume = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      font-size: ${({ theme }) => theme.text.s};
+
+      & + span {
+        font-size: ${({ theme }) => theme.text.m};
+      }
+    }
+
+    &:last-child {
+      font-weight: 700;
+      color: ${({ theme }) => theme['base-subtitle']};
+
+      span {
+        font-size: ${({ theme }) => theme.text.l};
+      }
+    }
   }
 `

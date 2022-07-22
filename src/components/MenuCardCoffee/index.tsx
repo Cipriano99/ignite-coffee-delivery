@@ -1,6 +1,7 @@
 import { Actions, CardContainer, Price, Tag } from './styles'
 import coffeeImg from '../../assets/coffees/Capuccino.png'
 import { ShoppingCartSimple } from 'phosphor-react'
+import { InputCounter } from '../InputCounter'
 
 interface CoffeeData {
   name: string
@@ -34,11 +35,7 @@ export const MenuCardCoffee = ({ dataCoffee }: MenuCardCoffeeProps) => {
         </Price>
 
         <Actions>
-          <div>
-            <input type="button" value="-" />
-            <span>1</span>
-            <input type="button" value="+" />
-          </div>
+          <InputCounter />
 
           <button type="button">
             <ShoppingCartSimple size={22} weight="fill" />
