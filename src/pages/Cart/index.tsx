@@ -21,6 +21,29 @@ import {
 import coffeeImg from '../../assets/coffees/Expresso.png'
 import { InputCounter } from '../../components/InputCounter'
 
+const coffeeOrder = [
+  {
+    src: coffeeImg,
+    name: '',
+    price: 9.9,
+  },
+  {
+    src: coffeeImg,
+    name: '',
+    price: 9.9,
+  },
+  {
+    src: coffeeImg,
+    name: '',
+    price: 9.9,
+  },
+  {
+    src: coffeeImg,
+    name: '',
+    price: 9.9,
+  },
+]
+
 export const Cart = () => {
   return (
     <CartContainer>
@@ -87,51 +110,25 @@ export const Cart = () => {
       <section>
         <h2>Cafés selecionados</h2>
         <OrderContainer>
-          <OrderItem>
-            <img src={coffeeImg} alt="" />
-            <div>
-              <p>Expresso Tradissional</p>
-              <Actions>
-                <InputCounter />
-                <button>
-                  <Trash />
-                  Remover
-                </button>
-              </Actions>
+          {coffeeOrder.map((coffee) => (
+            <div key={coffee.name}>
+              <OrderItem>
+                <img src={coffeeImg} alt="" />
+                <div>
+                  <p>Expresso Tradissional</p>
+                  <Actions>
+                    <InputCounter />
+                    <button>
+                      <Trash size={16} />
+                      Remover
+                    </button>
+                  </Actions>
+                </div>
+                <h4>R$9,90</h4>
+              </OrderItem>
+              <hr />
             </div>
-            <h4>R$9,90</h4>
-          </OrderItem>
-          <hr />
-          <OrderItem>
-            <img src={coffeeImg} alt="" />
-            <div>
-              <p>Expresso Tradissional</p>
-              <Actions>
-                <InputCounter />
-                <button>
-                  <Trash />
-                  Remover
-                </button>
-              </Actions>
-            </div>
-            <h4>R$9,90</h4>
-          </OrderItem>
-          <hr />
-          <OrderItem>
-            <img src={coffeeImg} alt="" />
-            <div>
-              <p>Expresso Tradissional</p>
-              <Actions>
-                <InputCounter />
-                <button>
-                  <Trash />
-                  Remover
-                </button>
-              </Actions>
-            </div>
-            <h4>R$9,90</h4>
-          </OrderItem>
-          <hr />
+          ))}
         </OrderContainer>
 
         <OrderResume>

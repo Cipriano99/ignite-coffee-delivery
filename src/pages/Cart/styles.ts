@@ -121,13 +121,15 @@ export const PaymentMethod = styled.button<PaymentMethodProps>`
 `
 
 export const OrderContainer = styled.div`
-  padding: 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 
+  padding-bottom: 0 !important;
+
   hr {
     border: 1px solid ${({ theme }) => theme['base-button']};
+    margin: 1.5rem 0;
   }
 `
 
@@ -143,6 +145,7 @@ export const OrderItem = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    gap: 0.5rem;
   }
 
   h4 {
@@ -174,13 +177,17 @@ export const Actions = styled.div`
     border: 0;
     border-radius: 6px;
 
-    border-bottom: 1px solid ${({ theme }) => theme['base-button']} svg {
+    border-bottom: 1px solid ${({ theme }) => theme['base-button']};
+
+    svg {
       color: ${({ theme }) => theme.purple};
     }
 
     &:hover {
       background-color: ${({ theme }) => theme['base-hover']};
       color: ${({ theme }) => theme['base-subtitle']};
+      cursor: pointer;
+
       svg {
         color: ${({ theme }) => theme['purple-dark']};
       }
@@ -191,6 +198,7 @@ export const OrderResume = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  padding-top: 0 !important;
 
   div {
     display: flex;
