@@ -2,13 +2,14 @@ import logoImg from '../../assets/coffeeLogo.svg'
 import { MapPin } from 'phosphor-react'
 import { NavContainer } from './styled'
 import { CartButton } from '../CartButton'
+import { Link } from 'react-router-dom'
 
 export const Navbar = () => {
   return (
     <NavContainer>
-      <a href="/">
+      <Link to="/">
         <img src={logoImg} alt="" />
-      </a>
+      </Link>
 
       <div>
         <span className="location">

@@ -8,6 +8,11 @@ export const NavContainer = styled.nav`
 
   padding: 2rem 10rem;
 
+  position: fixed;
+  overflow: hidden;
+  background-color: ${({ theme }) => theme.backgorund};
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+
   img {
     height: 2.5rem;
   }

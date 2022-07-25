@@ -2,8 +2,8 @@ import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { FormDelivery } from './components/FormDelivery'
-import { Order } from './components/OrderDetails'
+import { FormDelivery } from './FormDelivery'
+import { Order } from './OrderDetails'
 
 import { CartContainer } from './styles'
 

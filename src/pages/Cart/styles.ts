@@ -8,6 +8,8 @@ export const CartContainer = styled.form`
   column-gap: 2rem;
 
   section {
+    padding-top: 9rem;
+
     h2 {
       margin-bottom: 1rem;
     }
