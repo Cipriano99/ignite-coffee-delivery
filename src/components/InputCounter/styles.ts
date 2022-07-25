@@ -21,5 +21,9 @@ export const CounterContainer = styled.div`
     &:hover {
       color: ${({ theme }) => theme['purple-dark']};
     }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 `

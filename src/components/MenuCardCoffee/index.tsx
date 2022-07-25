@@ -1,7 +1,8 @@
 import { Actions, CardContainer, Price, Tag } from './styles'
-import coffeeImg from '../../assets/coffees/Capuccino.png'
 import { ShoppingCartSimple } from 'phosphor-react'
 import { InputCounter } from '../InputCounter'
+import { useCartCoffees } from '../../hooks/useCartCoffees'
+import { useState } from 'react'
 
 interface CoffeeData {
   name: string
@@ -16,6 +17,19 @@ interface MenuCardCoffeeProps {
 
 export const MenuCardCoffee = ({ dataCoffee }: MenuCardCoffeeProps) => {
   const { name, tag, description, src, price } = dataCoffee
+  const { addNewCoffee } = useCartCoffees()
+  const [coffeeQuantity, setCoffeeQuantity] = useState(1)
+
+  const manangeCoffeeQuantity = (type: 'plus' | 'minus') => {
+    type === 'plus'
+      ? setCoffeeQuantity((prev) => (prev += 1))
+      : setCoffeeQuantity((prev) => (prev -= 1))
+  }
+
+  const hadnleAddCoffeeToCart = () => {
+    addNewCoffee(name, coffeeQuantity)
+    setCoffeeQuantity(1)
+  }
 
   return (
     <CardContainer>
@@ -35,9 +49,12 @@ export const MenuCardCoffee = ({ dataCoffee }: MenuCardCoffeeProps) => {
         </Price>
 
         <Actions>
-          <InputCounter />
+          <InputCounter
+            coffeeQuantity={coffeeQuantity}
+            handleManangeQuantity={manangeCoffeeQuantity}
+          />
 
-          <button type="button">
+          <button type="button" onClick={hadnleAddCoffeeToCart}>
             <ShoppingCartSimple size={22} weight="fill" />
           </button>
         </Actions>
