@@ -12,7 +12,7 @@ export const HeaderContent = styled.div`
   align-items: center;
   justify-content: center;
   gap: 3.5rem;
-  padding: 2rem 10rem;
+  padding: 5.875rem 10rem;
 
   img {
     width: 478px;
