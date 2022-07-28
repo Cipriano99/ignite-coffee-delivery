@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useState } from 'react'
+import { toast } from 'react-toastify'
 import { coffeesData } from '../data/coffees'
 
 interface CoffeeData {
@@ -11,6 +12,7 @@ interface CoffeeData {
 interface CartCoffeesContextData {
   cartCoffees: CoffeeData[]
   addNewCoffee: (nameCoffee: string, quantity: number) => void
+  removeCoffee: (nameCoffee: string) => void
 }
 
 export const CartCoffeesContext = createContext({} as CartCoffeesContextData)
@@ -52,8 +54,29 @@ export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
     setCartCoffees(newCoffees)
   }
 
+  const removeCoffee = (nameCoffee: string) => {
+    const thereIsCoffee = cartCoffees.findIndex(
+      (coffee) => coffee.name === nameCoffee,
+    )
+
+    if (thereIsCoffee >= 0) {
+      const message = () => (
+        <>
+          <strong>{nameCoffee}</strong>
+          <span> removido</span>
+        </>
+      )
+      toast.info(message)
+      setCartCoffees((prev) =>
+        prev.filter((coffee) => coffee.name !== nameCoffee),
+      )
+    }
+  }
+
   return (
-    <CartCoffeesContext.Provider value={{ cartCoffees, addNewCoffee }}>
+    <CartCoffeesContext.Provider
+      value={{ cartCoffees, addNewCoffee, removeCoffee }}
+    >
       {children}
     </CartCoffeesContext.Provider>
   )

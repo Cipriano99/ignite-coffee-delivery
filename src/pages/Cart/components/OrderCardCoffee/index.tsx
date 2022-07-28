@@ -1,6 +1,5 @@
 import { Trash } from 'phosphor-react'
 import { InputCounter } from '../../../../components/InputCounter'
-import coffeeImg from '../../../../assets/coffees/Expresso.png'
 
 import { Actions, CardContainer, OrderItem } from './styles'
 import { useCartCoffees } from '../../../../hooks/useCartCoffees'
@@ -17,7 +16,8 @@ interface OrderCardCoffeeProps {
 }
 
 export const OrderCardCoffee = ({ dataCoffee }: OrderCardCoffeeProps) => {
-  const { addNewCoffee } = useCartCoffees()
+  const { addNewCoffee, removeCoffee } = useCartCoffees()
+
   const manangeCoffeeQuantity = (type: 'plus' | 'minus') => {
     hadnleAddCoffeeToCart(type === 'plus' ? 1 : -1)
   }
@@ -37,7 +37,7 @@ export const OrderCardCoffee = ({ dataCoffee }: OrderCardCoffeeProps) => {
               coffeeQuantity={dataCoffee.un}
               handleManangeQuantity={manangeCoffeeQuantity}
             />
-            <button>
+            <button type="button" onClick={() => removeCoffee(dataCoffee.name)}>
               <Trash size={16} />
               Remover
             </button>
