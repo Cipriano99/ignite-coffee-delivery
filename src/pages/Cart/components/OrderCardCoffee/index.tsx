@@ -3,6 +3,7 @@ import { InputCounter } from '../../../../components/InputCounter'
 
 import { Actions, CardContainer, OrderItem } from './styles'
 import { useCartCoffees } from '../../../../hooks/useCartCoffees'
+import { getCurrencyPrice } from '../../../../utils/getCurrencyPrice'
 
 interface CoffeeData {
   name: string
@@ -43,7 +44,7 @@ export const OrderCardCoffee = ({ dataCoffee }: OrderCardCoffeeProps) => {
             </button>
           </Actions>
         </div>
-        <h4>R${dataCoffee.price}</h4>
+        <h4>{getCurrencyPrice(dataCoffee.price)}</h4>
       </OrderItem>
       <hr />
     </CardContainer>

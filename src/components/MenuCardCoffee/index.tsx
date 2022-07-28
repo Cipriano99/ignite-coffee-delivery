@@ -3,6 +3,7 @@ import { ShoppingCartSimple } from 'phosphor-react'
 import { InputCounter } from '../InputCounter'
 import { useCartCoffees } from '../../hooks/useCartCoffees'
 import { useState } from 'react'
+import { getCurrencyPrice } from '../../utils/getCurrencyPrice'
 
 interface CoffeeData {
   name: string
@@ -16,7 +17,9 @@ interface MenuCardCoffeeProps {
 }
 
 export const MenuCardCoffee = ({ dataCoffee }: MenuCardCoffeeProps) => {
-  const { name, tag, description, src, price } = dataCoffee
+  const { name, tag, description, src, price: hardPrice } = dataCoffee
+  const price = getCurrencyPrice(hardPrice)
+
   const { addNewCoffee } = useCartCoffees()
   const [coffeeQuantity, setCoffeeQuantity] = useState(1)
 
@@ -45,7 +48,7 @@ export const MenuCardCoffee = ({ dataCoffee }: MenuCardCoffeeProps) => {
       <div>
         <Price>
           <span>R$</span>
-          <h4>{price}</h4>
+          <h4>{price.slice(3)}</h4>
         </Price>
 
         <Actions>
