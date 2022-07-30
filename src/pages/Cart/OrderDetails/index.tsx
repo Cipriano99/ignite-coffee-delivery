@@ -26,17 +26,17 @@ export const Order = () => {
       <OrderResume>
         <div>
           <span>Total de itens</span>
-          <span>{totalItems}</span>
+          <span>{getCurrencyPrice(totalItems)}</span>
         </div>
 
         <div>
           <span>Entrega</span>
-          <span>{deliveryPrice}</span>
+          <span>{getCurrencyPrice(deliveryPrice)}</span>
         </div>
 
         <div>
           <span>Total</span>
-          <span>{totalOrder}</span>
+          <span>{getCurrencyPrice(totalOrder)}</span>
         </div>
 
         <button type="submit">Confirmar pedido</button>
