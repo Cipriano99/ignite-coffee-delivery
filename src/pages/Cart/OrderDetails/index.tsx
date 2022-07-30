@@ -5,16 +5,10 @@ import { OrderCardCoffee } from '../components/OrderCardCoffee'
 import { ContentContainer, OrderResume } from './styles'
 
 export const Order = () => {
-  const { cartCoffees } = useCartCoffees()
-  const totalSumCoffee = cartCoffees.reduce((prev, curr, index, array) => {
-    return prev + array[index].price * array[index].un
-  }, 0)
-  const deliveryValue = 4.5
-
-  const totalItems = getCurrencyPrice(totalSumCoffee)
-  const deliveryPrice = getCurrencyPrice(deliveryValue)
-
-  const totalOrder = getCurrencyPrice(totalSumCoffee + deliveryValue)
+  const {
+    cartCoffees,
+    cartCoffeesPrices: { totalItems, deliveryPrice, totalOrder },
+  } = useCartCoffees()
 
   return (
     <section>
