@@ -21,16 +21,21 @@ interface CoffeesPricesData {
   totalOrder: number
 }
 
+type PaymentType = 'money' | 'debit' | 'credit'
+
 interface CartCoffeesContextData {
   cartCoffees: CoffeesData[]
   cartCoffeesPrices: CoffeesPricesData
+  payment: PaymentType
   addNewCoffee: (nameCoffee: string, quantity: number) => void
   removeCoffee: (nameCoffee: string) => void
+  selectPayment: (payment: string) => void
 }
 
 interface CartCoffeeState {
   cartCoffees: CoffeesData[]
   cartCoffeesPrices: CoffeesPricesData
+  payment: PaymentType
 }
 
 export const CartCoffeesContext = createContext({} as CartCoffeesContextData)
@@ -97,6 +102,13 @@ export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
         }
       }
 
+      if (action.type === 'PAY') {
+        return {
+          ...state,
+          payment: action.payload.payment,
+        }
+      }
+
       return state
     },
     {
@@ -106,9 +118,10 @@ export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
         deliveryPrice: 4.5,
         totalOrder: 0,
       },
+      payment: 'money',
     },
   )
-  const { cartCoffees, cartCoffeesPrices } = cartCoffeesState
+  const { cartCoffees, cartCoffeesPrices, payment } = cartCoffeesState
 
   const addNewCoffee = (nameCoffee: string, quantity: number) => {
     const coffeeFound: typeof coffeesData[0] | undefined = coffeesData.find(
@@ -149,9 +162,25 @@ export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  const selectPayment = (payment: string) => {
+    dispatch({
+      type: 'PAY',
+      payload: {
+        payment,
+      },
+    })
+  }
+
   return (
     <CartCoffeesContext.Provider
-      value={{ cartCoffees, cartCoffeesPrices, addNewCoffee, removeCoffee }}
+      value={{
+        cartCoffees,
+        cartCoffeesPrices,
+        payment,
+        addNewCoffee,
+        removeCoffee,
+        selectPayment,
+      }}
     >
       {children}
     </CartCoffeesContext.Provider>

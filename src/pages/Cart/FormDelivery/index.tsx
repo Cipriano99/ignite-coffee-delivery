@@ -14,12 +14,15 @@ import {
   PaymentContainer,
   PaymentMethod,
 } from './styles'
+import { useCartCoffees } from '../../../hooks/useCartCoffees'
 
 interface FormDeliveryProps {
   registerField: UseFormRegister<FieldValues>
 }
 
 export const FormDelivery = ({ registerField }: FormDeliveryProps) => {
+  const { payment, selectPayment } = useCartCoffees()
+
   return (
     <section>
       <h2>Complete seu pedido</h2>
@@ -71,17 +74,29 @@ export const FormDelivery = ({ registerField }: FormDeliveryProps) => {
         </header>
 
         <div>
-          <PaymentMethod type="button" isActive={false}>
+          <PaymentMethod
+            type="button"
+            isActive={payment === 'credit'}
+            onClick={() => selectPayment('credit')}
+          >
             <CreditCard size={24} />
             Cartão de crédito
           </PaymentMethod>
 
-          <PaymentMethod type="button" isActive={true}>
+          <PaymentMethod
+            type="button"
+            isActive={payment === 'debit'}
+            onClick={() => selectPayment('debit')}
+          >
             <Bank size={24} />
             Cartão de débito
           </PaymentMethod>
 
-          <PaymentMethod type="button" isActive={false}>
+          <PaymentMethod
+            type="button"
+            isActive={payment === 'money'}
+            onClick={() => selectPayment('money')}
+          >
             <Money size={24} />
             Dinheiro
           </PaymentMethod>
