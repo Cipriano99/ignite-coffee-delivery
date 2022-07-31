@@ -1,4 +1,4 @@
-import { UseFormRegister, FieldValues } from 'react-hook-form'
+import { UseFormRegister } from 'react-hook-form'
 
 import {
   MapPinLine,
@@ -15,9 +15,10 @@ import {
   PaymentMethod,
 } from './styles'
 import { useCartCoffees } from '../../../hooks/useCartCoffees'
+import { AddressDeliveryFormType } from '..'
 
 interface FormDeliveryProps {
-  registerField: UseFormRegister<FieldValues>
+  registerField: UseFormRegister<AddressDeliveryFormType>
 }
 
 export const FormDelivery = ({ registerField }: FormDeliveryProps) => {

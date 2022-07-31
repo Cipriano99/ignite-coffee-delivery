@@ -1,8 +1,17 @@
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import { DataContent, ItemContent, SuccessContainer } from './styles'
 import deliveryImg from '../../assets/Illustration.png'
+import { useCartCoffees } from '../../hooks/useCartCoffees'
 
 export const Success = () => {
+  const { address, payment } = useCartCoffees()
+
+  const paymentMethod = {
+    money: 'Dinheiro',
+    debit: 'Cartão de débito',
+    credit: 'Cartão de crédito',
+  }
+
   return (
     <SuccessContainer>
       <h1>Uhu! Pedido confirmado</h1>
@@ -17,9 +26,14 @@ export const Success = () => {
               </div>
               <div>
                 <span>
-                  Entrega em <strong>Rua João Daniel Martinelli</strong>
+                  Entrega em{' '}
+                  <strong>
+                    {address.rua}, {address.numero}
+                  </strong>
                 </span>
-                <span>102 Farrapos - Porto Alegre, RS</span>
+                <span>
+                  {address.bairro} - {address.cidade}, {address.uf}
+                </span>
               </div>
             </ItemContent>
 
@@ -39,7 +53,7 @@ export const Success = () => {
               </div>
               <div>
                 <span>Pagamento na entrega</span>
-                <strong>Cartão de Crédito</strong>
+                <strong>{paymentMethod[payment]}</strong>
               </div>
             </ItemContent>
           </div>

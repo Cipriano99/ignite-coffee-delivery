@@ -1,12 +1,7 @@
-import {
-  createContext,
-  ReactNode,
-  useEffect,
-  useReducer,
-  useState,
-} from 'react'
+import { createContext, ReactNode, useReducer } from 'react'
 import { toast } from 'react-toastify'
 import { coffeesData } from '../data/coffees'
+import { AddressDeliveryFormType } from '../pages/Cart'
 
 interface CoffeesData {
   name: string
@@ -27,15 +22,18 @@ interface CartCoffeesContextData {
   cartCoffees: CoffeesData[]
   cartCoffeesPrices: CoffeesPricesData
   payment: PaymentType
+  address: AddressDeliveryFormType
   addNewCoffee: (nameCoffee: string, quantity: number) => void
   removeCoffee: (nameCoffee: string) => void
   selectPayment: (payment: string) => void
+  selectAddress: (address: AddressDeliveryFormType) => void
 }
 
 interface CartCoffeeState {
   cartCoffees: CoffeesData[]
   cartCoffeesPrices: CoffeesPricesData
   payment: PaymentType
+  address: AddressDeliveryFormType
 }
 
 export const CartCoffeesContext = createContext({} as CartCoffeesContextData)
@@ -109,6 +107,13 @@ export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
         }
       }
 
+      if (action.type === 'DELIVERY') {
+        return {
+          ...state,
+          address: action.payload.address,
+        }
+      }
+
       return state
     },
     {
@@ -119,9 +124,10 @@ export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
         totalOrder: 0,
       },
       payment: 'money',
+      address: {},
     },
   )
-  const { cartCoffees, cartCoffeesPrices, payment } = cartCoffeesState
+  const { cartCoffees, cartCoffeesPrices, payment, address } = cartCoffeesState
 
   const addNewCoffee = (nameCoffee: string, quantity: number) => {
     const coffeeFound: typeof coffeesData[0] | undefined = coffeesData.find(
@@ -171,15 +177,26 @@ export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
     })
   }
 
+  const selectAddress = (address: AddressDeliveryFormType) => {
+    dispatch({
+      type: 'DELIVERY',
+      payload: {
+        address,
+      },
+    })
+  }
+
   return (
     <CartCoffeesContext.Provider
       value={{
         cartCoffees,
         cartCoffeesPrices,
         payment,
+        address,
         addNewCoffee,
         removeCoffee,
         selectPayment,
+        selectAddress,
       }}
     >
       {children}

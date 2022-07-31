@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const SuccessContainer = styled.div`
   max-width: 1120px;
   margin: 0 auto;
+  padding-top: 10rem;
 
   h1 {
     font-size: ${({ theme }) => theme.title.l};

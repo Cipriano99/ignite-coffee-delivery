@@ -1,12 +1,14 @@
 import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from 'react-router'
 
 import { FormDelivery } from './FormDelivery'
 import { Order } from './OrderDetails'
 
 import { CartContainer } from './styles'
 import { toast } from 'react-toastify'
+import { useCartCoffees } from '../../hooks/useCartCoffees'
 
 const formCartValidationSchema = zod.object({
   cep: zod.string().min(8, 'Informe o CEP corretamente'),
@@ -21,17 +23,23 @@ const formCartValidationSchema = zod.object({
     .max(2, 'Informe somente a sigla'),
 })
 
+export type AddressDeliveryFormType = zod.infer<typeof formCartValidationSchema>
+
 export const Cart = () => {
+  const navigate = useNavigate()
+  const { selectAddress } = useCartCoffees()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<AddressDeliveryFormType>({
     resolver: zodResolver(formCartValidationSchema),
   })
 
-  const handleFinishOrder = (data: any) => {
-    console.log(data)
+  function handleFinishOrder(data: AddressDeliveryFormType) {
+    selectAddress(data)
+    navigate('/success')
   }
 
   Object.values(errors)
