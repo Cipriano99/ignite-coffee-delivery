@@ -80,6 +80,7 @@ export const Actions = styled.div`
 
     &:hover {
       background-color: ${({ theme }) => theme.purple};
+      cursor: pointer;
     }
   }
 `

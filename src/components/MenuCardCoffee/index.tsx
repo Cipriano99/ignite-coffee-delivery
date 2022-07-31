@@ -4,6 +4,7 @@ import { InputCounter } from '../InputCounter'
 import { useCartCoffees } from '../../hooks/useCartCoffees'
 import { useState } from 'react'
 import { getCurrencyPrice } from '../../utils/getCurrencyPrice'
+import { toast } from 'react-toastify'
 
 interface CoffeeData {
   name: string
@@ -12,6 +13,7 @@ interface CoffeeData {
   src: string
   price: number
 }
+
 interface MenuCardCoffeeProps {
   dataCoffee: CoffeeData
 }
@@ -32,6 +34,12 @@ export const MenuCardCoffee = ({ dataCoffee }: MenuCardCoffeeProps) => {
   const hadnleAddCoffeeToCart = () => {
     addNewCoffee(name, coffeeQuantity)
     setCoffeeQuantity(1)
+    toast.success(
+      <>
+        <strong>{name}</strong>
+        <span> foi adicionado.</span>
+      </>,
+    )
   }
 
   return (
