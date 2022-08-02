@@ -2,21 +2,19 @@ import { createContext, ReactNode, useReducer } from 'react'
 import { toast } from 'react-toastify'
 import { coffeesData } from '../data/coffees'
 import { AddressDeliveryFormType } from '../pages/Cart'
-
-interface CoffeesData {
-  name: string
-  src: string
-  price: number
-  un: number
-}
-
-interface CoffeesPricesData {
-  totalItems: number
-  deliveryPrice: number
-  totalOrder: number
-}
-
-type PaymentType = 'money' | 'debit' | 'credit'
+import {
+  addCoffeeAction,
+  removeCoffeeAction,
+  selectAddressAction,
+  selectPaymentAction,
+} from '../reducers/coffee/actions'
+import {
+  CoffeeDataList,
+  coffeeReducer,
+  CoffeesData,
+  CoffeesPricesData,
+  PaymentType,
+} from '../reducers/coffee/reducer'
 
 interface CartCoffeesContextData {
   cartCoffees: CoffeesData[]
@@ -29,108 +27,23 @@ interface CartCoffeesContextData {
   selectAddress: (address: AddressDeliveryFormType) => void
 }
 
-interface CartCoffeeState {
-  cartCoffees: CoffeesData[]
-  cartCoffeesPrices: CoffeesPricesData
-  payment: PaymentType
-  address: AddressDeliveryFormType
-}
-
 export const CartCoffeesContext = createContext({} as CartCoffeesContextData)
 
 export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
-  const [cartCoffeesState, dispatch] = useReducer(
-    (state: CartCoffeeState, action: any) => {
-      const selectedCoffee = action.payload.coffee
-      const currentCart = state.cartCoffees
-
-      function updateOrderPrices({
-        cartCoffees,
-        cartCoffeesPrices,
-      }: CartCoffeeState) {
-        const totalSumCoffee = cartCoffees.reduce((prev, curr) => {
-          return prev + curr.price * curr.un
-        }, 0)
-
-        cartCoffeesPrices.totalItems = totalSumCoffee
-        cartCoffeesPrices.totalOrder =
-          totalSumCoffee + cartCoffeesPrices.deliveryPrice
-
-        return cartCoffeesPrices
-      }
-
-      if (action.type === 'ADD') {
-        const hasNewCoffee = currentCart.find(
-          (coffee) => coffee.name === selectedCoffee.name,
-        )
-
-        const cartCoffeeList = hasNewCoffee
-          ? currentCart.map((coffee) => {
-              if (coffee.name === selectedCoffee.name && coffee) {
-                return { ...coffee, un: coffee.un + selectedCoffee.un }
-              }
-              return coffee
-            })
-          : [...currentCart, selectedCoffee]
-
-        const newCartCoffee = {
-          ...state,
-          cartCoffees: cartCoffeeList,
-        }
-
-        const newPrices = updateOrderPrices(newCartCoffee)
-
-        return {
-          ...newCartCoffee,
-          cartCoffeesPrices: newPrices,
-        }
-      }
-
-      if (action.type === 'REMOVE') {
-        const updateCartCoffee = currentCart.filter(
-          (coffee) => coffee.name !== selectedCoffee,
-        )
-
-        const newCartCoffee = { ...state, cartCoffees: updateCartCoffee }
-        const newPrices = updateOrderPrices(newCartCoffee)
-
-        return {
-          ...newCartCoffee,
-          cartCoffeesPrices: newPrices,
-        }
-      }
-
-      if (action.type === 'PAY') {
-        return {
-          ...state,
-          payment: action.payload.payment,
-        }
-      }
-
-      if (action.type === 'DELIVERY') {
-        return {
-          ...state,
-          address: action.payload.address,
-        }
-      }
-
-      return state
+  const [cartCoffeesState, dispatch] = useReducer(coffeeReducer, {
+    cartCoffees: [],
+    cartCoffeesPrices: {
+      totalItems: 0,
+      deliveryPrice: 4.5,
+      totalOrder: 0,
     },
-    {
-      cartCoffees: [],
-      cartCoffeesPrices: {
-        totalItems: 0,
-        deliveryPrice: 4.5,
-        totalOrder: 0,
-      },
-      payment: 'money',
-      address: {},
-    },
-  )
+    payment: 'money',
+    address: {},
+  })
   const { cartCoffees, cartCoffeesPrices, payment, address } = cartCoffeesState
 
   const addNewCoffee = (nameCoffee: string, quantity: number) => {
-    const coffeeFound: typeof coffeesData[0] | undefined = coffeesData.find(
+    const coffeeFound: CoffeeDataList | undefined = coffeesData.find(
       (coffeeData) => coffeeData.name === nameCoffee,
     )
 
@@ -138,12 +51,7 @@ export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
       return
     }
 
-    dispatch({
-      type: 'ADD',
-      payload: {
-        coffee: { ...coffeeFound, un: quantity },
-      },
-    })
+    dispatch(addCoffeeAction(coffeeFound, quantity))
   }
 
   const removeCoffee = (nameCoffee: string) => {
@@ -152,12 +60,7 @@ export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
     )
 
     if (hasCoffee >= 0) {
-      dispatch({
-        type: 'REMOVE',
-        payload: {
-          coffee: nameCoffee,
-        },
-      })
+      dispatch(removeCoffeeAction(nameCoffee))
 
       toast.info(
         <>
@@ -169,21 +72,11 @@ export const CartCoffeesProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const selectPayment = (payment: string) => {
-    dispatch({
-      type: 'PAY',
-      payload: {
-        payment,
-      },
-    })
+    dispatch(selectPaymentAction(payment))
   }
 
   const selectAddress = (address: AddressDeliveryFormType) => {
-    dispatch({
-      type: 'DELIVERY',
-      payload: {
-        address,
-      },
-    })
+    dispatch(selectAddressAction(address))
   }
 
   return (
