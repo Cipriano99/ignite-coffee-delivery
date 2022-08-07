@@ -1,3 +1,5 @@
+import { produce } from 'immer'
+
 import { coffeesData } from '../../data/coffees'
 import { AddressDeliveryFormType } from '../../pages/Cart'
 import { ActionTypes } from './actions'
@@ -27,7 +29,7 @@ interface CartCoffeeState {
 }
 
 export function coffeeReducer(state: CartCoffeeState, action: any) {
-  const selectedCoffee = action.payload.coffee
+  const selectedDataCoffee = action.payload.dataCoffee
   const currentCart = state.cartCoffees
 
   function updateOrderPrices({
@@ -38,65 +40,59 @@ export function coffeeReducer(state: CartCoffeeState, action: any) {
       return prev + curr.price * curr.un
     }, 0)
 
-    cartCoffeesPrices.totalItems = totalSumCoffee
-    cartCoffeesPrices.totalOrder =
-      totalSumCoffee + cartCoffeesPrices.deliveryPrice
-
-    return cartCoffeesPrices
+    return produce(cartCoffeesPrices, (draft) => {
+      draft.totalItems = totalSumCoffee
+      draft.totalOrder = totalSumCoffee + draft.deliveryPrice
+    })
   }
 
   switch (action.type) {
     case ActionTypes.ADD: {
-      const hasNewCoffee = currentCart.find(
-        (coffee) => coffee.name === selectedCoffee.name,
+      const hasNewCoffee = currentCart.findIndex(
+        (coffee) => coffee.name === selectedDataCoffee.name,
       )
 
-      const cartCoffeeList = hasNewCoffee
-        ? currentCart.map((coffee) => {
-            if (coffee.name === selectedCoffee.name && coffee) {
-              return { ...coffee, un: coffee.un + selectedCoffee.un }
-            }
-            return coffee
-          })
-        : [...currentCart, selectedCoffee]
+      const cartCoffeeList = produce(currentCart, (draft) => {
+        hasNewCoffee >= 0
+          ? (draft[hasNewCoffee].un += selectedDataCoffee.un)
+          : draft.push(selectedDataCoffee)
+      })
 
-      const newCartCoffee = {
-        ...state,
-        cartCoffees: cartCoffeeList,
-      }
+      const newCartCoffee = produce(state, (draft) => {
+        draft.cartCoffees = cartCoffeeList
+      })
 
       const newPrices = updateOrderPrices(newCartCoffee)
 
-      return {
-        ...newCartCoffee,
-        cartCoffeesPrices: newPrices,
-      }
+      return produce(newCartCoffee, (draft) => {
+        draft.cartCoffeesPrices = newPrices
+      })
     }
 
     case ActionTypes.REMOVE: {
       const updateCartCoffee = currentCart.filter(
-        (coffee) => coffee.name !== selectedCoffee,
+        (coffee) => coffee.name !== selectedDataCoffee,
       )
 
       const newCartCoffee = { ...state, cartCoffees: updateCartCoffee }
+
       const newPrices = updateOrderPrices(newCartCoffee)
 
-      return {
-        ...newCartCoffee,
-        cartCoffeesPrices: newPrices,
-      }
+      return produce(state, (draft) => {
+        draft.cartCoffeesPrices = newPrices
+      })
     }
 
     case ActionTypes.PAY:
       return {
         ...state,
-        payment: action.payload.payment,
+        payment: selectedDataCoffee,
       }
 
     case ActionTypes.DELIVERY:
       return {
         ...state,
-        address: action.payload.address,
+        address: selectedDataCoffee,
       }
 
     default:
