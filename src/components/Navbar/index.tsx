@@ -15,7 +15,7 @@ export const Navbar = () => {
       </Link>
 
       <div>
-        {address?.cep && (
+        {address?.cidade && address.uf && (
           <span className="location">
             <MapPin size={24} weight="fill" />
             {address.cidade}, {address.uf}

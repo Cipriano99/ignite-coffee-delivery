@@ -21,7 +21,7 @@ export interface CoffeesPricesData {
 
 export type PaymentType = 'money' | 'debit' | 'credit'
 
-interface CartCoffeeState {
+export interface CartCoffeeState {
   cartCoffees: CoffeesData[]
   cartCoffeesPrices: CoffeesPricesData
   payment: PaymentType
@@ -74,7 +74,9 @@ export function coffeeReducer(state: CartCoffeeState, action: any) {
         (coffee) => coffee.name !== selectedDataCoffee,
       )
 
-      const newCartCoffee = { ...state, cartCoffees: updateCartCoffee }
+      const newCartCoffee = produce(state, (draft) => {
+        draft.cartCoffees = updateCartCoffee
+      })
 
       const newPrices = updateOrderPrices(newCartCoffee)
 
@@ -93,6 +95,21 @@ export function coffeeReducer(state: CartCoffeeState, action: any) {
       return {
         ...state,
         address: selectedDataCoffee,
+      }
+
+    case ActionTypes.CITY_STATE:
+      return {
+        ...state,
+        address: {
+          cidade: selectedDataCoffee?.city,
+          uf: selectedDataCoffee?.state,
+        },
+      }
+
+    case ActionTypes.ALL_DATA:
+      return {
+        ...state,
+        ...selectedDataCoffee,
       }
 
     default:

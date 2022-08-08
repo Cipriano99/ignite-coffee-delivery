@@ -27,7 +27,7 @@ export type AddressDeliveryFormType = zod.infer<typeof formCartValidationSchema>
 
 export const Cart = () => {
   const navigate = useNavigate()
-  const { selectAddress } = useCartCoffees()
+  const { payment, address, selectAddress } = useCartCoffees()
 
   const {
     register,
@@ -35,10 +35,28 @@ export const Cart = () => {
     formState: { errors },
   } = useForm<AddressDeliveryFormType>({
     resolver: zodResolver(formCartValidationSchema),
+    defaultValues: {
+      cep: address?.cep,
+      rua: address?.rua,
+      numero: address?.numero,
+      complemento: address?.complemento,
+      bairro: address?.bairro,
+      cidade: address?.cidade,
+      uf: address?.uf,
+    },
   })
 
   function handleFinishOrder(data: AddressDeliveryFormType) {
     selectAddress(data)
+
+    localStorage.setItem(
+      '@coffee-delivery:user-data-0.0.1',
+      JSON.stringify({
+        payment,
+        address: data,
+      }),
+    )
+
     navigate('/success')
   }
 
