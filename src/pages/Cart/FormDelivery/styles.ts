@@ -18,11 +18,19 @@ export const FormContainer = styled.div`
     }
 
     &:nth-child(3) {
-      grid-template-columns: 200px 1fr;
+      grid-template-columns: 1fr 3fr;
+
+      @media screen and (min-width: 540px) {
+        grid-template-columns: 200px 1fr;
+      }
     }
 
     &:nth-child(4) {
-      grid-template-columns: 200px 1fr 60px;
+      grid-template-columns: 6fr 6fr 2fr;
+
+      @media screen and (min-width: 540px) {
+        grid-template-columns: 200px 1fr 60px;
+      }
     }
 
     input {

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const SuccessContainer = styled.div`
   max-width: 1120px;
   margin: 0 auto;
+  padding: 0 8px;
   padding-top: 10rem;
 
   h1 {
@@ -16,9 +17,18 @@ export const SuccessContainer = styled.div`
 
   main {
     margin-top: 2.5rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 5rem;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: 540px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    section img {
+      max-width: 100vw;
+    }
   }
 `
 
