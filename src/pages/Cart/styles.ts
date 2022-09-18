@@ -3,12 +3,24 @@ import styled, { css } from 'styled-components'
 export const CartContainer = styled.form`
   max-width: 1120px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 448px;
-  column-gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.5rem;
+
+  @media screen and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 448px;
+    column-gap: 2rem;
+  }
+
+  @media screen and (min-width: 1024px) {
+  }
 
   section {
-    padding-top: 9rem;
+    &:first-child {
+      padding-top: 7rem;
+    }
+    padding-top: 2rem;
 
     h2 {
       margin-bottom: 1rem;
@@ -31,6 +43,10 @@ export const CartContainer = styled.form`
 
     &:first-child > div + div {
       margin-top: 0.75rem;
+    }
+
+    @media screen and (min-width: 1024px) {
+      padding-top: 9rem;
     }
   }
 `

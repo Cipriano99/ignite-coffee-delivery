@@ -11,11 +11,21 @@ export const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column-reverse;
   gap: 3.5rem;
-  padding: 5.875rem 10rem;
+  padding: 5.875rem 2rem;
 
   img {
-    width: 478px;
+    width: 320px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 5.875rem 10rem;
+    flex-direction: row;
+
+    img {
+      width: 478px;
+    }
   }
 `
 
@@ -36,10 +46,13 @@ export const ContentHeader = styled.div`
 export const ItensContainer = styled.div`
   margin-top: 3.125rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
   row-gap: 1.25rem;
   column-gap: 1.25rem;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
 
   div {
     height: 2.75rem;
@@ -80,16 +93,23 @@ export const ItensContainer = styled.div`
 `
 
 export const ContentContainer = styled.main`
-  padding: 2rem 10rem;
+  padding: 2rem 01rem;
 
   h2 {
     margin-bottom: 3.375rem;
   }
 
   > div {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    row-gap: 2.5rem;
-    column-gap: 2rem;
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 1.5rem 4rem;
+  }
+
+  @media screen and (min-width: 1280px) {
+    padding: 2rem 10rem;
   }
 `

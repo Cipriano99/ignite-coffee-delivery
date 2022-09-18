@@ -8,6 +8,9 @@ export const CardContainer = styled.div`
   border-radius: 6px 36px 6px 36px;
   padding: 1.25rem;
 
+  max-width: 15rem;
+  margin: 0 auto;
+
   background-color: ${({ theme }) => theme['base-card']};
 
   img {

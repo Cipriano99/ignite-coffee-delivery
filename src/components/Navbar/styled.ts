@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const NavContainer = styled.nav`
-  width: 100%;
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -34,5 +34,9 @@ export const NavContainer = styled.nav`
       align-items: center;
       gap: 0.25rem;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 1.5rem 2rem;
   }
 `
