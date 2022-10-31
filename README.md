@@ -24,12 +24,15 @@ Nesta aplicação pode-se adicionar, marcar como concluídas e remover atividade
 
 ## Telas da aplicação
 
-- Lista de atividades vazia
-  ![Ignite todo screen without tasks](./.github/noTasks.png)
+- Tela inicial
+  ![Coffee Delivery](./.github/home-welcome.png)
 
-- Atividades listadas, algumas concluídas e a próxima a ser feita.
-  ![Ignite todo screen](./.github/withTasks.png)
+- Cardápio
+  ![Coffee list](./.github/home-coffees.png)
 
-## On Work
+- Tela de detalhes de pedido
+  ![Coffee order](./.github/cart-order-details.png)
+  
+- Tela de pedido finalizado
+  ![Coffee order](./.github/success.png)
 
-Acesse e teste a aplicação [clicando aqui](https://cipriano-ignite-todo-list.netlify.app/)
