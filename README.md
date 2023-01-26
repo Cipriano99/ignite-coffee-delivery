@@ -10,10 +10,6 @@ Projeto desenvolvido durante a **Especialização no desenvolvimento Front-end**
 
 Uma SPA (Single Page Aplication) aprofundado as habilidades com desenvolvimento mais avançado com o ReactJs e TypeScript abordando sobre ContextApi, useReducer, React Hook Form, Zod, React Router Dom, Immer.
 
-## Funcionalidades
-
-Nesta aplicação pode-se adicionar, marcar como concluídas e remover atividades da lista. A mesma informa quantas atividades contém na lista e uma progresso exibindo quantas, do total listado, já foram concluídas.
-
 ## Techs utilizadas
 
 - [ReactJs](https://pt-br.reactjs.org/)
